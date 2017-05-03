@@ -1,9 +1,5 @@
 
 public class Acesso {
-
-	public static final float VALOR_FRACAO = (float) 2.0;
-	public static final float VALOR_HORA = (float) 7.0;
-	public static final float VALOR_DIARIA = (float) 30.0;
 	
 	public String placa;
 	public int dia, mes, ano;
@@ -12,8 +8,6 @@ public class Acesso {
 	public int horaSaida, 
 			   minutosSaida;
 	
-
-
 	public Acesso() {}
 
 	
@@ -27,6 +21,7 @@ public class Acesso {
 	
 	
 	public float calcularValor() { 
+		
 		int quantidadeHoras = horaSaida - horaEntrada; 
 		int quantidadeMinutos; 
 		
@@ -34,7 +29,6 @@ public class Acesso {
 			quantidadeMinutos = minutosSaida - minutosEntrada;
 		else if (horaSaida > horaEntrada && minutosEntrada == minutosSaida){
 			quantidadeMinutos = 0;
-			quantidadeHoras = horaSaida - horaEntrada;
 		}
 		else if (horaSaida > horaEntrada && minutosEntrada > minutosSaida) 
 			quantidadeMinutos = minutosSaida - minutosEntrada;
@@ -47,14 +41,9 @@ public class Acesso {
 			quantidadeMinutos = 0;
 		}
 		
-		final float valorTotalHoras = quantidadeHoras * VALOR_HORA;
-		final float valorTotalMinutos = (float) (Math.ceil(quantidadeMinutos / 15.0) * VALOR_FRACAO);
-		final float valorTotal = valorTotalHoras + valorTotalMinutos;
+		final float valorTotal = Estacionamento.calcularPagamento(quantidadeHoras, quantidadeMinutos);
 		
-		if (quantidadeHoras >=9)
-			return VALOR_DIARIA;
-		else 
-			return valorTotal;
+		return valorTotal;
 	}
 	
 	
